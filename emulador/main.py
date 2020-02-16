@@ -47,8 +47,10 @@ class ACEmulator:
         return str(random.randrange(2180,2240,1)/10.0)
     
     def send_emu_data(self, data):
-
-        pass
+        print(data)
+        
 
 if __name__ == "__main__":
-    pass
+    acemu = ACEmulator("TESTING_EMULATOR")
+    acemu.main_loop()
+    
