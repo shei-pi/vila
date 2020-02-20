@@ -1,15 +1,15 @@
 from django.db import models
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User
 
 
-class Device(User):
-
-    device_id = models.CharField(unique=True, max_length=100)
+class Device(models.Model):
+    user        = models.OneToOneField(User, on_delete=models.CASCADE)
+    device_id   = models.CharField(unique=True, max_length=100)
 
 # Create your models here.
 class DeviceData(models.Model):
     
-    device_id           = models.ForeignKey(Device, on_delete=models.CASCADE)
+    device              = models.ForeignKey(Device, on_delete=models.CASCADE)
     timestamp           = models.DateTimeField(auto_now_add=True)
     temperature         = models.FloatField(blank=True,null=True)
     humidity            = models.FloatField(blank=True,null=True)
@@ -21,4 +21,3 @@ class DeviceData(models.Model):
     class Meta:
         ordering = ['timestamp']
 
-        

@@ -1,1 +1,8 @@
 .vscode/settings.json
+vila/db.sqlite3
+emulador/config/__pycache__/emulatorconfig.cpython-36.pyc
+*.pyc
+*.lock
+vila/Pipfile
+.vscode/launch.json
+.gitignore

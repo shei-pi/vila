@@ -1,5 +1,7 @@
 import time
 import random
+import requests
+from config.emulatorconfig import SERVER_IP,SERVER_PORT
 class ACEmulator:
 
     def __init__(self, id):
@@ -17,7 +19,7 @@ class ACEmulator:
         return True
 
     def create_emu_data(self):
-        return {'id': self.get_id(),
+        return {'device': self.get_id(),
                 'temperature': self.get_temperature(),
                 'humidity': self.get_humidity(),
                 'compressor_status': self.get_compressor_status(),
@@ -47,10 +49,13 @@ class ACEmulator:
         return str(random.randrange(2180,2240,1)/10.0)
     
     def send_emu_data(self, data):
-        print(data)
+        print (data)
+        response = requests.post('http://{}:{}/ambiente/device_data_list/'.format(SERVER_IP,SERVER_PORT), 
+                            data = data)
+        print(response.text)
         
 
 if __name__ == "__main__":
-    acemu = ACEmulator("TESTING_EMULATOR")
+    acemu = ACEmulator("http://127.0.0.1:8000/ambiente/devices/2/")
     acemu.main_loop()
     
