@@ -20,6 +20,13 @@ class DeviceDataSerializer(serializers.HyperlinkedModelSerializer):
         model = DeviceData
         fields = ['device', 'temperature', 'humidity', 
                     'compressor_status', 'fan_status', 'line_current', 'line_voltage']
+
+    def create(self, validated_data):
+        device = validated_data.pop('device')
+        device_instance, created = Device.objects.get_or_create(device_id=device)
+        devicedata_instance = DeviceData.objects.create(**validated_data, device=device_instance)
+        return devicedata_instance
+
 class DeviceSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Device

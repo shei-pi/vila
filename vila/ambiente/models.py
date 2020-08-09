@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class Device(models.Model):
-    user        = models.OneToOneField(User, on_delete=models.CASCADE)
+    user        = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     device_id   = models.CharField(unique=True, max_length=100)
 
 # Create your models here.

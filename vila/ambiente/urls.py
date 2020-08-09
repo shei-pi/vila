@@ -13,7 +13,7 @@ router.register(r'devices', views.DeviceViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('device_list/', views.DeviceList.as_view()),
-    path('device_data_list/', views.DeviceDataView.as_view()),
+    path('device_data/', views.DeviceDataView.as_view()),
     path('device_list/<int:pk>', views.DeviceDetail.as_view()),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
