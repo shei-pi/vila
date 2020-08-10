@@ -19,7 +19,7 @@ class DeviceDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = DeviceData
         fields = ['device_id', 'temperature', 'humidity', 
-                    'compressor_status', 'fan_status', 'line_current', 'line_voltage']
+                    'compressor_status', 'fan_status', 'line_current', 'line_voltage', 'timestamp']
     
 
 class DeviceSerializer(serializers.ModelSerializer):
