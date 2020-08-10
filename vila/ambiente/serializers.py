@@ -15,12 +15,14 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['url', 'name']
 
 
-class DeviceDataSerializer(serializers.HyperlinkedModelSerializer):
+class DeviceDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = DeviceData
-        fields = ['device', 'temperature', 'humidity', 
+        fields = ['device_id', 'temperature', 'humidity', 
                     'compressor_status', 'fan_status', 'line_current', 'line_voltage']
-class DeviceSerializer(serializers.HyperlinkedModelSerializer):
+    
+
+class DeviceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Device
         fields = ['device_id','url', 'user' ]
