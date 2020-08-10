@@ -3,13 +3,13 @@ from django.contrib.auth.models import User
 
 
 class Device(models.Model):
-    user        = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
     device_id   = models.CharField(unique=True, max_length=100)
+    user        = models.OneToOneField(User, on_delete=models.CASCADE, default=None, null=True)
 
 # Create your models here.
 class DeviceData(models.Model):
     
-    device              = models.ForeignKey(Device, on_delete=models.CASCADE)
+    device_id           = models.ForeignKey(Device, on_delete=models.CASCADE, to_field='device_id')
     timestamp           = models.DateTimeField(auto_now_add=True)
     temperature         = models.FloatField(blank=True,null=True)
     humidity            = models.FloatField(blank=True,null=True)

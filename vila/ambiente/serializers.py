@@ -15,19 +15,14 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['url', 'name']
 
 
-class DeviceDataSerializer(serializers.HyperlinkedModelSerializer):
+class DeviceDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = DeviceData
-        fields = ['device', 'temperature', 'humidity', 
+        fields = ['device_id', 'temperature', 'humidity', 
                     'compressor_status', 'fan_status', 'line_current', 'line_voltage']
+    
 
-    def create(self, validated_data):
-        device = validated_data.pop('device')
-        device_instance, created = Device.objects.get_or_create(device_id=device)
-        devicedata_instance = DeviceData.objects.create(**validated_data, device=device_instance)
-        return devicedata_instance
-
-class DeviceSerializer(serializers.HyperlinkedModelSerializer):
+class DeviceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Device
         fields = ['device_id','url', 'user' ]

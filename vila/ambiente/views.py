@@ -30,6 +30,12 @@ class DeviceViewSet(viewsets.ModelViewSet):
     """
     queryset = Device.objects.all()
     serializer_class = DeviceSerializer
+class DeviceDataViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = DeviceData.objects.all()
+    serializer_class = DeviceDataSerializer
 
 class DeviceList(generics.ListCreateAPIView):
     queryset = Device.objects.all()
@@ -43,3 +49,7 @@ class DeviceDataView(generics.ListCreateAPIView):
     queryset = DeviceData.objects.all()
     serializer_class = DeviceDataSerializer
     
+    def post(self, request, *args, **kwargs):
+        device_inst,create=Device.objects.get_or_create(device_id = request.data.get('device_id','0'))
+        
+        return self.create(request, device_id=device_inst.pk, *args, **kwargs)
