@@ -13,6 +13,7 @@ class DeviceData(models.Model):
     timestamp           = models.DateTimeField(auto_now_add=True)
     temperature         = models.FloatField(blank=True,null=True)
     humidity            = models.FloatField(blank=True,null=True)
+    moisture            = models.FloatField(blank=True,null=True)
     compressor_status   = models.CharField(max_length=10,blank=True, default='')
     fan_status          = models.CharField(max_length=10,blank=True, default='')
     line_current        = models.FloatField(blank=True,null=True)
