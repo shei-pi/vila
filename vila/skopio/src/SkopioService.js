@@ -12,7 +12,7 @@ export default class SkopioService{
         return axios.get(url).then(response => response.data);
     }
     getDevicesDataByURL(link){
-        const url = `${API_URL}${link}`;
+        const url = `${link}`;
         return axios.get(url).then(response => response.data);
     }
     // getCustomer(pk) {

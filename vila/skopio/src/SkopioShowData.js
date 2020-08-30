@@ -13,33 +13,35 @@ class  DeviceData  extends  Component {
             nextPageURL:  ''
         };
         this.nextPage  =  this.nextPage.bind(this);
-        this.handleDelete  =  this.handleDelete.bind(this);
+        // this.handleDelete  =  this.handleDelete.bind(this);
     }
     componentDidMount() {
         var  self  =  this;
+        
         skopioService.getDevicesData().then(function (result) {
-            self.setState({ device_data:  result.data, nextPageURL:  result.nextlink})
+            console.log(result)
+            self.setState({ device_data:  result.results, nextPageURL:  result.next});
         });
     }
-    handleDelete(e,pk){
-        var  self  =  this;
-        skopioService.deleteCustomer({pk :  pk}).then(()=>{
-            var  newArr  =  self.state.customers.filter(function(obj) {
-                return  obj.pk  !==  pk;
-            });
-            self.setState({customers:  newArr})
-        });
-    }
+    // handleDelete(e,pk){
+    //     var  self  =  this;
+    //     skopioService.deleteCustomer({pk :  pk}).then(()=>{
+    //         var  newArr  =  self.state.customers.filter(function(obj) {
+    //             return  obj.pk  !==  pk;
+    //         });
+    //         self.setState({customers:  newArr})
+    //     });
+    // }
     nextPage(){
         var  self  =  this;
         skopioService.getDevicesDataByURL(this.state.nextPageURL).then((result) => {
-            self.setState({ device_data:  result.data, nextPageURL:  result.nextlink})
+            self.setState({ device_data:  result.results, nextPageURL:  result.next})
         });
     }
 render() {
 
     return (
-    <div  className="devicedata--list">
+    <div  className="device_data--list">
         <table  className="table">
             <thead  key="thead">
             <tr>
@@ -52,15 +54,15 @@ render() {
             </thead>
             <tbody>
                 {this.state.device_data.map( dd  =>
-                <tr  key={dd.pk}>
-                    <td>{dd.pk}  </td>
+                <tr  key={dd.device_id}>
+                    <td>{dd.device_id}  </td>
                     <td>{dd.timestamp}</td>
                     <td>{dd.moisture}</td>
                     <td>{dd.humidity}</td>
                     <td>{dd.temperature}</td>
                     <td>
-                    <button  onClick={(e)=>  this.handleDelete(e,dd.pk) }> Delete</button>
-                    <a  href={"/device_data/" + dd.pk}> Update</a>
+                    {/* <button  onClick={(e)=>  this.handleDelete(e,dd.pk) }> Delete</button>
+                    <a  href={"/device_data/" + dd.pk}> Update</a> */}
                     </td>
                 </tr>)}
             </tbody>
