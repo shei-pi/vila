@@ -1,17 +1,21 @@
 import matplotlib
 import matplotlib.pyplot as plt
-
 import matplotlib.ticker as ticker
 import pandas as pd
 import requests
 import datetime
 from pprint import pprint as pp
 
-response = requests.get('http://192.168.1.44:8000/ambiente/device_data/')
-
-response_json = response.json()
-print('All ', len(response_json.get('results')))
-df = pd.DataFrame(response_json.get('results'))
+results = []
+max_pages=10
+for i in range(1,max_pages):
+    response = requests.get('http://192.168.1.44:8000/ambiente/device_data/?page={}'.format(i))
+    if response.status_code==404:
+        break
+    response_json = response.json()
+    results=results+response_json.get('results')
+print('All ', len(results))
+df = pd.DataFrame(results)
 
 df = df[(df.device_id=='31416')]
 df['timestamp_dt']=pd.to_datetime(df['timestamp'],
