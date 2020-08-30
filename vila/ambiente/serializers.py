@@ -18,7 +18,7 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class DeviceDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = DeviceData
-        fields = ['device_id', 'temperature', 'humidity', 
+        fields = ['device_id', 'temperature', 'humidity', 'moisture',
                     'compressor_status', 'fan_status', 'line_current', 'line_voltage', 'timestamp']
     
 

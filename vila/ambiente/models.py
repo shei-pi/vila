@@ -11,6 +11,7 @@ class DeviceData(models.Model):
     
     device_id           = models.ForeignKey(Device, on_delete=models.CASCADE, to_field='device_id')
     timestamp           = models.DateTimeField(auto_now_add=True)
+    moisture            = models.FloatField(blank=True,null=True)
     temperature         = models.FloatField(blank=True,null=True)
     humidity            = models.FloatField(blank=True,null=True)
     compressor_status   = models.CharField(max_length=10,blank=True, default='')
