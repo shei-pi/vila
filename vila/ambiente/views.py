@@ -51,5 +51,5 @@ class DeviceDataView(generics.ListCreateAPIView):
     
     def post(self, request, *args, **kwargs):
         device_inst,create=Device.objects.get_or_create(device_id = request.data.get('device_id','0'))
-        
+        print(request.data)
         return self.create(request, device_id=device_inst.pk, *args, **kwargs)
