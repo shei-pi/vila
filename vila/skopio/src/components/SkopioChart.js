@@ -4,23 +4,6 @@ import SkopioService from '../SkopioService';
 
 import { Line } from 'react-chartjs-2';
 
-export function useInterval(callback, delay){
-    const savedCallback = useRef();
-    useEffect(()=>{
-        savedCallback.cuurent = callback;        
-    }, [callback]);
-    useEffect(()=>{
-        function tick() {
-            savedCallback.current();
-        }
-        if (delay!=null){
-            const id = setInterval(tick,delay);
-            return ()=>{
-                clearInterval(id);
-            };
-        }
-    },[callback, delay]);
-}
 const skopioService = new SkopioService();
 
 class DeviceDataChart extends Component {
@@ -52,9 +35,6 @@ class DeviceDataChart extends Component {
             self.setState({ device_data: result.results, nextPageURL: result.next });
             self.drawChart();
         });
-        useInterval(async ()=>{
-        console.log('Polleando nueva data');
-        }, 3000);
     }
     drawChart() {
         this.setState({chartData: this.transformDeviceDataToChart(this.device_data)})        
